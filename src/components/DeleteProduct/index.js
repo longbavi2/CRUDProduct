@@ -12,7 +12,7 @@ function DeleteProduct(props) {
             confirmButtonText: 'Yes, delete it!'
         }).then((result) => {
             if (result.isConfirmed) {
-                fetch(`http://localhost:3002/products/${item.id}`, {
+                fetch(`https://api-json-eta.vercel.app/products/${item.id}`, {
                     method: "DELETE",
                 })
                     .then(data => {

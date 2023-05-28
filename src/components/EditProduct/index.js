@@ -18,7 +18,7 @@ function EditProduct(props) {
     const [category, setCategory] = useState([]);
     useEffect(() => {
         const getApi = () => {
-            fetch("http://localhost:3002/category")
+            fetch("https://api-json-eta.vercel.app/category")
                 .then(res => res.json())
                 .then(data => {
                     setCategory(data);
@@ -44,7 +44,7 @@ function EditProduct(props) {
     }
     const handleSubmit = (e) => {
         e.preventDefault();
-        fetch(`http://localhost:3002/products/${item.id}`, {
+        fetch(`https://api-json-eta.vercel.app/products/${item.id}`, {
             method: "PATCH",
             headers: {
                 "Content-Type": "application/json"
@@ -65,6 +65,10 @@ function EditProduct(props) {
                     })
                 }
             })
+            .catch(err => {
+                setIsOpen(false);
+                handleReload();
+            });
 
     }
     return (
@@ -115,7 +119,7 @@ function EditProduct(props) {
                                     <label htmlFor="discountPercentage">Giảm giá</label>
                                 </td>
                                 <td>
-                                    <input value={values.discountPercentage} name='discountPercentage' type="text" id='discountPercentage' onChange={handleChange} />
+                                    <input value={values.discountPercentage} name='discountPercentage' type="number" id='discountPercentage' onChange={handleChange} />
                                 </td>
                             </tr>
                             <tr>
@@ -123,7 +127,7 @@ function EditProduct(props) {
                                     <label htmlFor="stock">Số lượng còn lại</label>
                                 </td>
                                 <td>
-                                    <input value={values.stock} name='stock' type="text" id='stock' onChange={handleChange} />
+                                    <input value={values.stock} name='stock' type="number" min={0} id='stock' onChange={handleChange} />
                                 </td>
                             </tr>
                             <tr>
@@ -131,7 +135,7 @@ function EditProduct(props) {
                                     <label htmlFor="thumbnail">Đường dẫn ảnh</label>
                                 </td>
                                 <td>
-                                    <input value={values.thumbnail} name='thumbnail' type="text" id='thumbnail' onChange={handleChange} />
+                                    <input value={values.thumbnail} name='thumbnail' type="text"  id='thumbnail' onChange={handleChange} />
                                 </td>
                             </tr>
                             <tr>

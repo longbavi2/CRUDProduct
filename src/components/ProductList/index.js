@@ -5,7 +5,7 @@ import "./style.scss";
 function ProductList() {
     const [Data, SetData] = useState([]);
     const getApi = async () => {
-        var res = await fetch("http://localhost:3002/products");
+        var res = await fetch("https://api-json-eta.vercel.app/products");
         var result = await res.json();
         SetData(result.reverse());
     }

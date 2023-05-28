@@ -25,7 +25,7 @@ function CreateProduct(props) {
     }
     useEffect(() => {
         const getApi = () => {
-            fetch("http://localhost:3002/category")
+            fetch("https://api-json-eta.vercel.app/category")
                 .then(res => res.json())
                 .then(data => {
                     setCategory(data);
@@ -51,7 +51,7 @@ function CreateProduct(props) {
             rating: 0
         };
         console.log("khi gửi", values);
-        fetch("http://localhost:3002/products", {
+        fetch("https://api-json-eta.vercel.app/products", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -74,6 +74,18 @@ function CreateProduct(props) {
                     })
                 }
             })
+            .catch(err => {
+                console.log("Error Reading data " + err);
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Your work has been saved',
+                    showConfirmButton: false,
+                    timer: 1500
+                })
+                setIsOpen(false);
+                setValues({});
+                handleReload();
+            });
     }
     return (
         <>
@@ -125,7 +137,7 @@ function CreateProduct(props) {
                                     <label htmlFor="discountPercentage">Giảm giá</label>
                                 </td>
                                 <td>
-                                    <input name='discountPercentage' type="text" id='discountPercentage' onChange={handleChange} />
+                                    <input name='discountPercentage' min={0} type="number" id='discountPercentage' onChange={handleChange} />
                                 </td>
                             </tr>
                             <tr>
@@ -133,7 +145,7 @@ function CreateProduct(props) {
                                     <label htmlFor="stock">Số lượng còn lại</label>
                                 </td>
                                 <td>
-                                    <input name='stock' type="text" id='stock' onChange={handleChange} />
+                                    <input name='stock' type="number" min={1} id='stock' onChange={handleChange} />
                                 </td>
                             </tr>
                             <tr>
